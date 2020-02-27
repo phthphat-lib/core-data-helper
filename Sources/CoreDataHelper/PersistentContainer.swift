@@ -11,6 +11,7 @@ import CoreData
 /// A CoredataStack with save, fetch, insert, delete method
 ///
 /// You don't need to create a background context, just use a new id for new one
+@available(OSX 10.12, *)
 @available(iOS 10.0, *)
 public class PersistentContainer: NSPersistentContainer {
     public let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -58,6 +59,7 @@ public class PersistentContainer: NSPersistentContainer {
     }
 }
 
+@available(OSX 10.12, *)
 @available(iOS 10.0, *)
 extension PersistentContainer: CoreDataMethodExcutable {
     

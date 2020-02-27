@@ -11,9 +11,11 @@ import CoreData
 // Protocol bring NSPersistentContainer save, fetch, insert, delete method
 //
 // Class inherit it must also inherit `NSPersistentContainter`
+@available(OSX 10.12, *)
 @available(iOS 10.0, *)
 public protocol CoreDataMethodExcutable: NSPersistentContainer {
 }
+@available(OSX 10.12, *)
 @available(iOS 10.0, *)
 extension CoreDataMethodExcutable {
     ///Save custom context include its parent
