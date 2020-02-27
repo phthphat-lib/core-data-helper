@@ -1,3 +1,3 @@
-# CoreDataHelper
+# CoreData Helper
 
-A Coredatastack help simple method like save context, fetch, insert, delete an object
+Provide fetch, insert, delete with `NSManagedObject`
