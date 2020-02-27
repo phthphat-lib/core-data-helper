@@ -19,9 +19,15 @@ public class PersistentContainer: NSPersistentContainer {
     /// Collection of background Context with given id: `Int`
     public var backgroundContextCollection: [Int: NSManagedObjectContext] = [:]
     
-    public override init(name: String, managedObjectModel model: NSManagedObjectModel) {
-        super.init(name: name, managedObjectModel: model)
-        backgroundContext.parent = viewContext
+    public override func loadPersistentStores(completionHandler block: @escaping (NSPersistentStoreDescription, Error?) -> Void) {
+        super.loadPersistentStores { (storeDescription, err) in
+            block(storeDescription, err)
+            if err == nil {
+                self.viewContext.automaticallyMergesChangesFromParent = true
+                self.backgroundContext.parent = self.viewContext
+                self.backgroundContext.automaticallyMergesChangesFromParent = true
+            }
+        }
     }
     
     /// Return a `NSManageObjectContext` with `privateQueueConcurrencyType` concurrency type
@@ -47,6 +53,7 @@ public class PersistentContainer: NSPersistentContainer {
             guard let context = self.getBackgroundContext(withId: id) else {
                 let newContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                 newContext.parent = viewContext
+                newContext.automaticallyMergesChangesFromParent = true
                 backgroundContextCollection[id] = newContext
                 return newContext
             }
@@ -79,6 +86,7 @@ extension PersistentContainer: CoreDataMethodExcutable {
         })
         //Save parent of backgroundcontext
         do {
+            try backgroundContext.save()
             try viewContext.save()
         } catch let err {
             complt(err)

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CoreDataHelper",
+        "repositoryURL": "https://gitlab.com/phthphat-share/coredatahelper.git",
+        "state": {
+          "branch": "master",
+          "revision": "7189a3eaf03ec165e0edad3602a7806ec857c5b4",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
