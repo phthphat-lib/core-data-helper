@@ -14,14 +14,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        addUser(name: "abc", birthday: Date())
-        addUser(name: "def", birthday: Date())
-        addUser(name: "ghi", birthday: Date())
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.container.saveAllContexts()
-        }
+//        addUser(name: "abc", birthday: Date())
+//        addUser(name: "def", birthday: Date())
+//        addUser(name: "ghi", birthday: Date())
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.container.saveAllContexts()
+//        }
         
-//        loadUser()
+        loadUser()
     }
 
     func addUser(name: String, birthday: Date) {
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         container.fetch(on: .background) { (result: Result<[User], Error>) in
             switch result {
             case .success(let users):
-                print(users.forEach({ $0.name }))
+                print(users.map({ $0.name }))
             case .failure(let error):
                 print(error.localizedDescription)
             }
