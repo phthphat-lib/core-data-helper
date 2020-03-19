@@ -76,7 +76,7 @@ extension PersistentContainer: CoreDataMethodExcutable {
     public func save(on workingMode: WorkingMode, complt: @escaping ((Error?) -> Void) = { _ in }) {
         self.save(self.getContext(with: workingMode), complt: complt)
     }
-    public func saveAllContexts(complt: @escaping ((Error?) -> Void) = { _ in }) {
+    public func saveAllContexts(complt: @escaping ((Error?) -> Void)) {
         backgroundContextCollection.forEach({
             do {
                 try $1.save()
@@ -96,7 +96,7 @@ extension PersistentContainer: CoreDataMethodExcutable {
     /// - Parameters:
     ///   - workingMode: main or background
     ///   - complt: handler with `Result<[Entity], Error>`
-    public func fetch<Entity: NSManagedObject>(on workingMode: WorkingMode, complt: @escaping (Result<[Entity], Error>) -> Void) {
+    public func fetch<Entity: NSManagedObject>(_ type: Entity.Type, on workingMode: WorkingMode, complt: @escaping (Result<[Entity], Error>) -> Void) {
         self.fetch(self.getContext(with: workingMode), complt: complt)
     }
     /// Delete a object with `whichInclude` condition
@@ -104,7 +104,7 @@ extension PersistentContainer: CoreDataMethodExcutable {
     ///   - workingMode: main or background
     ///   - whichInclude: condition
     ///   - complt: handler
-    public func delete<Entity: NSManagedObject>(on workingMode: WorkingMode, whichInclude: @escaping (Entity) -> Bool, complt: @escaping ((Error?) -> Void) = { _ in }) {
+    public func delete<Entity: NSManagedObject>(_ type: Entity.Type, on workingMode: WorkingMode, whichInclude: @escaping (Entity) -> Bool, complt: @escaping ((Error?) -> Void)) {
         self.delete(self.getContext(with: workingMode), whichInclude: whichInclude, complt: complt)
     }
     /// Insert on Object with configure it `setUpEntity`
@@ -112,7 +112,7 @@ extension PersistentContainer: CoreDataMethodExcutable {
     ///   - workingMode: main or background
     ///   - setUpEntity: set up an exist object
     ///   - complt: handler
-    public func insert<Entity: NSManagedObject>(on workingMode: WorkingMode, setUpEntity: @escaping (Entity) -> Void, complt: @escaping ((Error?) -> Void) = { _ in }) {
+    public func insert<Entity: NSManagedObject>(_ type: Entity.Type, on workingMode: WorkingMode, setUpEntity: @escaping (Entity) -> Void, complt: @escaping ((Error?) -> Void)) {
         self.insert(self.getContext(with: workingMode), initWith: setUpEntity, complt: complt)
     }
 }
